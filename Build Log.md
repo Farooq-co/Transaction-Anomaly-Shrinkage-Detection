@@ -102,7 +102,78 @@ ChatGPT assists with:
 ChatGPT is also used for project documentation, workflow planning, feature implementation guidance, and explaining framework behavior during development.
 
 ---
+### Isolation Forest Algorithm
 
+For anomaly detection in this project, I used the Isolation Forest algorithm from Scikit-learn.
+
+The main idea behind Isolation Forest is that anomalies are rare and different from normal data, so they are much easier to isolate.
+
+Instead of learning what abnormal behavior looks like, the algorithm repeatedly creates random decision trees by randomly selecting:
+
+a feature (such as transaction amount or refund count), and
+a random split value for that feature.
+
+Normal transactions require many splits to isolate because they are similar to many other records. However, suspicious transactions are isolated in only a few splits because they are very different from the majority of the data.
+
+The algorithm calculates an anomaly score for every transaction:
+
+Score close to -1: Highly anomalous (suspicious)
+Score around 0 or positive: Normal transaction
+
+In my project, I used features such as:
+
+Transaction amount
+Number of refunds
+Shift sales
+Void transactions
+Discount amount (if available)
+
+After training the Isolation Forest model, each transaction receives an anomaly score. Transactions identified as anomalies are stored as alerts and displayed on the dashboard with reasons like:
+
+Unusually large refund
+Abnormally high transaction amount
+Suspicious cashier activity
+Possible shrinkage or fraud
+Why I Chose Isolation Forest
+
+I selected Isolation Forest because:
+
+It is an unsupervised learning algorithm, so it does not require labeled fraud data.
+It works well on large datasets.
+It is fast and efficient.
+It is specifically designed for anomaly detection.
+It is available in Scikit-learn and easy to integrate with FastAPI.
+Implementation
+from sklearn.ensemble import IsolationForest
+
+model = IsolationForest(
+    contamination=0.05,
+    random_state=42
+)
+
+model.fit(features)
+
+predictions = model.predict(features)
+scores = model.decision_function(features)
+
+Here:
+
+fit() trains the model using transaction data.
+predict() returns:
+1 → Normal transaction
+-1 → Anomalous transaction
+decision_function() provides an anomaly score that can be used to rank alerts.
+Example
+
+Suppose most fuel transactions are between $30 and $120.
+
+If one transaction suddenly has:
+
+Amount = $2,000
+Multiple refunds
+Unusual cashier activity
+
+Isolation Forest isolates this record very quickly and marks it as an anomaly because it is significantly different from the normal transaction patterns.
 # Database Management
 
 ## SQLite vs. PostgreSQL Rationale
