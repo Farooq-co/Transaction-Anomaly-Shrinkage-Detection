@@ -1,5 +1,5 @@
-# Transaction-Anomaly-Shrinkage-Detection deploying issue 
+# Transaction-Anomaly-Shrinkage-Detection Deployment
 
+The application is currently being deployed on **Vercel**. During the deployment process, I encountered build and configuration issues related to the Python environment and package management. These issues are being resolved to enable a successful live deployment.
 
-
-I attempted to deploy the application on Railway, but encountered HTTP-related issues associated with the platform. I also explored alternative hosting services, including Render and Fly.io, but they required a payment method or credit card, which was not available. Consequently, I have provided a demo video demonstrating the application's functionality in place of a live deployment.
+In the meantime, I have included a demo video that demonstrates the application's functionality and key features. Once the deployment issues are resolved, the live Vercel URL will be made available.
